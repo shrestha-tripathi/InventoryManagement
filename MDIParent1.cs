@@ -127,5 +127,11 @@ namespace InventoryManagement
             dealer_info di = new dealer_info();
             di.Show();
         }
+
+        private void purchaseProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            purchase_master pm = new purchase_master();
+            pm.Show();
+        }
     }
 }

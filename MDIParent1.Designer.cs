@@ -36,11 +36,12 @@
             addUnitsToolStripMenuItem = new ToolStripMenuItem();
             productToolStripMenuItem = new ToolStripMenuItem();
             addProductNameToolStripMenuItem = new ToolStripMenuItem();
+            dealerToolStripMenuItem = new ToolStripMenuItem();
+            dealerInfoToolStripMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            dealerToolStripMenuItem = new ToolStripMenuItem();
-            dealerInfoToolStripMenuItem = new ToolStripMenuItem();
+            purchaseProductToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
@@ -86,7 +87,7 @@
             // 
             // productToolStripMenuItem
             // 
-            productToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addProductNameToolStripMenuItem });
+            productToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addProductNameToolStripMenuItem, purchaseProductToolStripMenuItem });
             productToolStripMenuItem.Name = "productToolStripMenuItem";
             productToolStripMenuItem.Size = new Size(116, 38);
             productToolStripMenuItem.Text = "Product";
@@ -94,9 +95,23 @@
             // addProductNameToolStripMenuItem
             // 
             addProductNameToolStripMenuItem.Name = "addProductNameToolStripMenuItem";
-            addProductNameToolStripMenuItem.Size = new Size(350, 44);
+            addProductNameToolStripMenuItem.Size = new Size(359, 44);
             addProductNameToolStripMenuItem.Text = "Add Product Name";
             addProductNameToolStripMenuItem.Click += addProductNameToolStripMenuItem_Click;
+            // 
+            // dealerToolStripMenuItem
+            // 
+            dealerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dealerInfoToolStripMenuItem });
+            dealerToolStripMenuItem.Name = "dealerToolStripMenuItem";
+            dealerToolStripMenuItem.Size = new Size(103, 38);
+            dealerToolStripMenuItem.Text = "Dealer";
+            // 
+            // dealerInfoToolStripMenuItem
+            // 
+            dealerInfoToolStripMenuItem.Name = "dealerInfoToolStripMenuItem";
+            dealerInfoToolStripMenuItem.Size = new Size(265, 44);
+            dealerInfoToolStripMenuItem.Text = "Dealer Info";
+            dealerInfoToolStripMenuItem.Click += dealerInfoToolStripMenuItem_Click;
             // 
             // statusStrip
             // 
@@ -115,19 +130,12 @@
             toolStripStatusLabel.Size = new Size(78, 32);
             toolStripStatusLabel.Text = "Status";
             // 
-            // dealerToolStripMenuItem
+            // purchaseProductToolStripMenuItem
             // 
-            dealerToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dealerInfoToolStripMenuItem });
-            dealerToolStripMenuItem.Name = "dealerToolStripMenuItem";
-            dealerToolStripMenuItem.Size = new Size(103, 38);
-            dealerToolStripMenuItem.Text = "Dealer";
-            // 
-            // dealerInfoToolStripMenuItem
-            // 
-            dealerInfoToolStripMenuItem.Name = "dealerInfoToolStripMenuItem";
-            dealerInfoToolStripMenuItem.Size = new Size(359, 44);
-            dealerInfoToolStripMenuItem.Text = "Dealer Info";
-            dealerInfoToolStripMenuItem.Click += dealerInfoToolStripMenuItem_Click;
+            purchaseProductToolStripMenuItem.Name = "purchaseProductToolStripMenuItem";
+            purchaseProductToolStripMenuItem.Size = new Size(359, 44);
+            purchaseProductToolStripMenuItem.Text = "Purchase Product";
+            purchaseProductToolStripMenuItem.Click += purchaseProductToolStripMenuItem_Click;
             // 
             // MDIParent1
             // 
@@ -164,6 +172,7 @@
         private ToolStripMenuItem addProductNameToolStripMenuItem;
         private ToolStripMenuItem dealerToolStripMenuItem;
         private ToolStripMenuItem dealerInfoToolStripMenuItem;
+        private ToolStripMenuItem purchaseProductToolStripMenuItem;
     }
 }
 
