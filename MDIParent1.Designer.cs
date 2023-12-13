@@ -36,12 +36,16 @@
             addUnitsToolStripMenuItem = new ToolStripMenuItem();
             productToolStripMenuItem = new ToolStripMenuItem();
             addProductNameToolStripMenuItem = new ToolStripMenuItem();
+            purchaseProductToolStripMenuItem = new ToolStripMenuItem();
+            saleProductToolStripMenuItem = new ToolStripMenuItem();
             dealerToolStripMenuItem = new ToolStripMenuItem();
             dealerInfoToolStripMenuItem = new ToolStripMenuItem();
+            reportToolStripMenuItem = new ToolStripMenuItem();
+            purchaseReportToolStripMenuItem = new ToolStripMenuItem();
+            salesReportToolStripMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            purchaseProductToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
@@ -49,7 +53,7 @@
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(32, 32);
-            menuStrip.Items.AddRange(new ToolStripItem[] { userToolStripMenuItem, unitsToolStripMenuItem, productToolStripMenuItem, dealerToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { userToolStripMenuItem, unitsToolStripMenuItem, productToolStripMenuItem, dealerToolStripMenuItem, reportToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(13, 5, 0, 5);
@@ -87,7 +91,7 @@
             // 
             // productToolStripMenuItem
             // 
-            productToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addProductNameToolStripMenuItem, purchaseProductToolStripMenuItem });
+            productToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addProductNameToolStripMenuItem, purchaseProductToolStripMenuItem, saleProductToolStripMenuItem });
             productToolStripMenuItem.Name = "productToolStripMenuItem";
             productToolStripMenuItem.Size = new Size(116, 38);
             productToolStripMenuItem.Text = "Product";
@@ -95,9 +99,23 @@
             // addProductNameToolStripMenuItem
             // 
             addProductNameToolStripMenuItem.Name = "addProductNameToolStripMenuItem";
-            addProductNameToolStripMenuItem.Size = new Size(359, 44);
+            addProductNameToolStripMenuItem.Size = new Size(350, 44);
             addProductNameToolStripMenuItem.Text = "Add Product Name";
             addProductNameToolStripMenuItem.Click += addProductNameToolStripMenuItem_Click;
+            // 
+            // purchaseProductToolStripMenuItem
+            // 
+            purchaseProductToolStripMenuItem.Name = "purchaseProductToolStripMenuItem";
+            purchaseProductToolStripMenuItem.Size = new Size(350, 44);
+            purchaseProductToolStripMenuItem.Text = "Purchase Product";
+            purchaseProductToolStripMenuItem.Click += purchaseProductToolStripMenuItem_Click;
+            // 
+            // saleProductToolStripMenuItem
+            // 
+            saleProductToolStripMenuItem.Name = "saleProductToolStripMenuItem";
+            saleProductToolStripMenuItem.Size = new Size(350, 44);
+            saleProductToolStripMenuItem.Text = "Sale Product";
+            saleProductToolStripMenuItem.Click += saleProductToolStripMenuItem_Click;
             // 
             // dealerToolStripMenuItem
             // 
@@ -112,6 +130,27 @@
             dealerInfoToolStripMenuItem.Size = new Size(265, 44);
             dealerInfoToolStripMenuItem.Text = "Dealer Info";
             dealerInfoToolStripMenuItem.Click += dealerInfoToolStripMenuItem_Click;
+            // 
+            // reportToolStripMenuItem
+            // 
+            reportToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseReportToolStripMenuItem, salesReportToolStripMenuItem });
+            reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            reportToolStripMenuItem.Size = new Size(104, 38);
+            reportToolStripMenuItem.Text = "Report";
+            // 
+            // purchaseReportToolStripMenuItem
+            // 
+            purchaseReportToolStripMenuItem.Name = "purchaseReportToolStripMenuItem";
+            purchaseReportToolStripMenuItem.Size = new Size(359, 44);
+            purchaseReportToolStripMenuItem.Text = "Purchase Report";
+            purchaseReportToolStripMenuItem.Click += purchaseReportToolStripMenuItem_Click;
+            // 
+            // salesReportToolStripMenuItem
+            // 
+            salesReportToolStripMenuItem.Name = "salesReportToolStripMenuItem";
+            salesReportToolStripMenuItem.Size = new Size(359, 44);
+            salesReportToolStripMenuItem.Text = "Sales Report";
+            salesReportToolStripMenuItem.Click += salesReportToolStripMenuItem_Click;
             // 
             // statusStrip
             // 
@@ -129,13 +168,6 @@
             toolStripStatusLabel.Name = "toolStripStatusLabel";
             toolStripStatusLabel.Size = new Size(78, 32);
             toolStripStatusLabel.Text = "Status";
-            // 
-            // purchaseProductToolStripMenuItem
-            // 
-            purchaseProductToolStripMenuItem.Name = "purchaseProductToolStripMenuItem";
-            purchaseProductToolStripMenuItem.Size = new Size(359, 44);
-            purchaseProductToolStripMenuItem.Text = "Purchase Product";
-            purchaseProductToolStripMenuItem.Click += purchaseProductToolStripMenuItem_Click;
             // 
             // MDIParent1
             // 
@@ -173,6 +205,10 @@
         private ToolStripMenuItem dealerToolStripMenuItem;
         private ToolStripMenuItem dealerInfoToolStripMenuItem;
         private ToolStripMenuItem purchaseProductToolStripMenuItem;
+        private ToolStripMenuItem saleProductToolStripMenuItem;
+        private ToolStripMenuItem reportToolStripMenuItem;
+        private ToolStripMenuItem purchaseReportToolStripMenuItem;
+        private ToolStripMenuItem salesReportToolStripMenuItem;
     }
 }
 

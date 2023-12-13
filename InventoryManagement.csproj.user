@@ -10,6 +10,9 @@
     <Compile Update="dealer_info.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="generate_bill.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -19,7 +22,13 @@
     <Compile Update="purchase_master.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="purchase_report.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="sales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="sales_report.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="unit.cs">

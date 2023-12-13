@@ -133,5 +133,23 @@ namespace InventoryManagement
             purchase_master pm = new purchase_master();
             pm.Show();
         }
+
+        private void saleProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sales sa = new sales();
+            sa.Show();
+        }
+
+        private void salesReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sales_report sp = new sales_report();
+            sp.Show();
+        }
+
+        private void purchaseReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            purchase_report pr = new purchase_report();
+            pr.Show();
+        }
     }
 }
