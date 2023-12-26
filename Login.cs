@@ -1,17 +1,21 @@
 using System.Data.SqlClient;
 using System.Data;
+using System.Text;
+using System.Security.Cryptography;
+using System.Configuration;
 
 namespace InventoryManagement
 {
     public partial class login : Form
     {
-
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shres\source\repos\InventoryManagement\inventory.mdf;Integrated Security=True");
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(connectionString);
         public login()
         {
             InitializeComponent();
         }
 
+        /*
         private void button1_Click_1(object sender, EventArgs e)
         {
             int i = 0;
@@ -32,6 +36,63 @@ namespace InventoryManagement
                 this.Hide();
                 MDIParent1 mdi = new MDIParent1();
                 mdi.Show();
+            }
+
+        }
+        */
+
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password + "shrestha"));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < hashedBytes.Length; i++)
+                {
+                    builder.Append(hashedBytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            int i = 0;
+            string Query = "select count(*) from registration where username = @username and password = @password";
+            
+            
+            try
+            {
+                SqlCommand cmd = new SqlCommand(Query, conn);
+                cmd.Parameters.AddWithValue("@username", textBox1.Text.ToString());
+                cmd.Parameters.AddWithValue("@password", HashPassword(textBox2.Text.ToString()));
+                i = (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException ex)
+            {
+                // Handle exceptions
+                // Example: Log the exception
+                Console.WriteLine("SQL Error: " + ex.Message);
+            }
+            if (i == 0)
+            {
+                MessageBox.Show("Username or Password is Incorrect!");
+            }
+            else
+            {
+                if (textBox1.Text.ToString() == "admin")
+                {
+                    this.Hide();
+                    MDIParent1 mdi = new MDIParent1();
+                    mdi.Show();
+                }
+                else
+                {
+                    this.Hide();
+                    MDIParent2 mdi = new MDIParent2();
+                    mdi.Show();
+                }
+                
             }
 
         }

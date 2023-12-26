@@ -107,49 +107,62 @@ namespace InventoryManagement
         private void addNewUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             add_new_user au = new add_new_user();
+            au.MdiParent = this;
             au.Show();
         }
 
         private void addUnitsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             unit un = new unit();
+            un.MdiParent = this;
             un.Show();
         }
 
         private void addProductNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             add_product_name apn = new add_product_name();
+            apn.MdiParent = this;
             apn.Show();
         }
 
         private void dealerInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dealer_info di = new dealer_info();
+            di.MdiParent = this;
             di.Show();
         }
 
         private void purchaseProductToolStripMenuItem_Click(object sender, EventArgs e)
         {
             purchase_master pm = new purchase_master();
+            pm.MdiParent = this;
             pm.Show();
         }
 
         private void saleProductToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sales sa = new sales();
+            sa.MdiParent = this;
             sa.Show();
         }
 
         private void salesReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sales_report sp = new sales_report();
+            sp.MdiParent = this;
             sp.Show();
         }
 
         private void purchaseReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             purchase_report pr = new purchase_report();
+            pr.MdiParent = this;
             pr.Show();
+        }
+
+        private void MDIParent1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

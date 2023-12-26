@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace InventoryManagement
 {
     public partial class unit : Form
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\shres\source\repos\InventoryManagement\inventory.mdf;Integrated Security=True");
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
+        SqlConnection conn = new SqlConnection(connectionString);
         public unit()
         {
             InitializeComponent();

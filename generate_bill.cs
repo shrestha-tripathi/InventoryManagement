@@ -16,5 +16,10 @@ namespace InventoryManagement
         {
             InitializeComponent();
         }
+
+        private void generate_bill_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -37,6 +37,7 @@
             ClientSize = new Size(1574, 932);
             Name = "generate_bill";
             Text = "generate_bill";
+            Load += generate_bill_Load;
             ResumeLayout(false);
         }
 
