@@ -8,15 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Configuration;
 
 namespace InventoryManagement
 {
     public partial class add_new_user : Form
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionStringMySQL"].ConnectionString;
+        MySqlConnection conn = new MySqlConnection(connectionString);
         public add_new_user()
         {
             InitializeComponent();
@@ -44,19 +44,19 @@ namespace InventoryManagement
         private void button1_Click(object sender, EventArgs e)
         {
             int i = 0;
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from registration where username = '" + textBox3.Text + "'";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             i = Convert.ToInt32(dt.Rows.Count.ToString());
             if (i == 0)
             {
-                SqlCommand cmd1 = conn.CreateCommand();
+                MySqlCommand cmd1 = conn.CreateCommand();
                 cmd1.CommandType = System.Data.CommandType.Text;
-                cmd1.CommandText = "insert into registration values('" + textBox1.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "', '" + HashPassword(textBox4.Text.ToString()) + "', '" + textBox5.Text + "', '" + textBox6.Text + "')";
+                cmd1.CommandText = "insert into registration (firstname, lastname, username, password, email, contact) values('" + textBox1.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "', '" + HashPassword(textBox4.Text.ToString()) + "', '" + textBox5.Text + "', '" + textBox6.Text + "')";
                 cmd1.ExecuteNonQuery();
 
                 textBox1.Text = ""; textBox2.Text = ""; textBox3.Text = "";
@@ -84,12 +84,12 @@ namespace InventoryManagement
 
         public void display()
         {
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.CommandText = "select * from registration";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             dataGridView1.DataSource = dt;
 
@@ -101,7 +101,7 @@ namespace InventoryManagement
             int id;
             id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
             String Query = "delete from registration where id=@id";
-            SqlCommand cmd = new SqlCommand(Query,conn);
+            MySqlCommand cmd = new MySqlCommand(Query,conn);
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();

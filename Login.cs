@@ -1,15 +1,15 @@
-using System.Data.SqlClient;
 using System.Data;
 using System.Text;
 using System.Security.Cryptography;
 using System.Configuration;
+using MySql.Data.MySqlClient;
 
 namespace InventoryManagement
 {
     public partial class login : Form
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionStringMySQL"].ConnectionString;
+        MySqlConnection conn = new MySqlConnection(connectionString);
         public login()
         {
             InitializeComponent();
@@ -57,18 +57,18 @@ namespace InventoryManagement
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            int i = 0;
+            Int64 i = 0;
             string Query = "select count(*) from registration where username = @username and password = @password";
             
             
             try
             {
-                SqlCommand cmd = new SqlCommand(Query, conn);
+                MySqlCommand cmd = new MySqlCommand(Query, conn);
                 cmd.Parameters.AddWithValue("@username", textBox1.Text.ToString());
                 cmd.Parameters.AddWithValue("@password", HashPassword(textBox2.Text.ToString()));
-                i = (int)cmd.ExecuteScalar();
+                i = (Int64)cmd.ExecuteScalar();
             }
-            catch (SqlException ex)
+            catch (MySqlException ex)
             {
                 // Handle exceptions
                 // Example: Log the exception
@@ -99,7 +99,7 @@ namespace InventoryManagement
 
         private void login_Load(object sender, EventArgs e)
         {
-            if (conn.State == System.Data.ConnectionState.Open)
+            if (conn.State == ConnectionState.Open)
             {
                 conn.Close();
             }

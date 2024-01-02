@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Configuration;
 
 namespace InventoryManagement
 {
     public partial class add_product_name : Form
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionStringMySQL"].ConnectionString;
+        MySqlConnection conn = new MySqlConnection(connectionString);
 
         public add_product_name()
         {
@@ -47,12 +47,12 @@ namespace InventoryManagement
         public void fill_dd()
         {
             comboBox1.Items.Clear();
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from units";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
@@ -63,12 +63,12 @@ namespace InventoryManagement
 
         public void fill_dg()
         {
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from product_names";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             dataGridView1.DataSource = dt;
 
@@ -76,9 +76,9 @@ namespace InventoryManagement
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into product_names values('" + textBox1.Text + "', '" + comboBox1.SelectedItem.ToString() + "')";
+            cmd.CommandText = "insert into product_names (product_name, units) values('" + textBox1.Text + "', '" + comboBox1.SelectedItem.ToString() + "')";
             cmd.ExecuteNonQuery();
 
             textBox1.Text = "";
@@ -93,24 +93,24 @@ namespace InventoryManagement
             int id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
 
             comboBox2.Items.Clear();
-            SqlCommand cmd1 = conn.CreateCommand();
+            MySqlCommand cmd1 = conn.CreateCommand();
             cmd1.CommandType = CommandType.Text;
             cmd1.CommandText = "select * from units";
             cmd1.ExecuteNonQuery();
             DataTable dt1 = new DataTable();
-            SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
+            MySqlDataAdapter da1 = new MySqlDataAdapter(cmd1);
             da1.Fill(dt1);
             foreach (DataRow dr in dt1.Rows)
             {
                 comboBox2.Items.Add(dr["unit"].ToString());
             }
 
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from product_names where id=" + id + "";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
@@ -128,24 +128,24 @@ namespace InventoryManagement
             int id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
 
             comboBox2.Items.Clear();
-            SqlCommand cmd1 = conn.CreateCommand();
+            MySqlCommand cmd1 = conn.CreateCommand();
             cmd1.CommandType = CommandType.Text;
             cmd1.CommandText = "select * from units";
             cmd1.ExecuteNonQuery();
             DataTable dt1 = new DataTable();
-            SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
+            MySqlDataAdapter da1 = new MySqlDataAdapter(cmd1);
             da1.Fill(dt1);
             foreach (DataRow dr in dt1.Rows)
             {
                 comboBox2.Items.Add(dr["unit"].ToString());
             }
 
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from product_names where id=" + id + "";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
@@ -159,7 +159,7 @@ namespace InventoryManagement
         private void button2_Click(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "update product_names set product_name='" +textBox2.Text + "' , units='" + comboBox2.SelectedItem.ToString() + "' where id=" + id + "";
             cmd.ExecuteNonQuery();

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Configuration;
 
@@ -15,8 +15,8 @@ namespace InventoryManagement
 {
     public partial class sales : Form
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionStringMySQL"].ConnectionString;
+        MySqlConnection conn = new MySqlConnection(connectionString);
 
         DataTable datTab = new DataTable();
 
@@ -73,12 +73,12 @@ namespace InventoryManagement
 
             listBox1.Items.Clear();
 
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from stock where product_name like('" + textBox3.Text + "%')";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
@@ -120,12 +120,12 @@ namespace InventoryManagement
 
         private void textBox4_Enter(object sender, EventArgs e)
         {
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select top 1 * from purchase_master where product_name='" + textBox3.Text + "' order by id desc";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
@@ -150,12 +150,12 @@ namespace InventoryManagement
         {
             int stock = 0;
 
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from stock where product_name='" + textBox3.Text + "'";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
@@ -212,18 +212,18 @@ namespace InventoryManagement
         private void button2_Click(object sender, EventArgs e)
         {
             string orderId = "";
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into order_user values('" + textBox1.Text + "', '" + textBox2.Text + "', '" + comboBox1.Text + "', '" + dateTimePicker1.Value.ToString("dd/mm/yyyy") + "')";
+            cmd.CommandText = "insert into order_user (firstname, lastname, billtype, purchase_date) values('" + textBox1.Text + "', '" + textBox2.Text + "', '" + comboBox1.Text + "', '" + dateTimePicker1.Value.ToString("dd/mm/yyyy") + "')";
             cmd.ExecuteNonQuery();
 
-            SqlCommand cmd2 = conn.CreateCommand();
+            MySqlCommand cmd2 = conn.CreateCommand();
             cmd2.CommandType = CommandType.Text;
             cmd2.CommandText = "select top 1 * from order_user order by id desc";
             cmd2.ExecuteNonQuery();
 
             DataTable dt2 = new DataTable();
-            SqlDataAdapter da2 = new SqlDataAdapter(cmd2);
+            MySqlDataAdapter da2 = new MySqlDataAdapter(cmd2);
             da2.Fill(dt2);
             foreach (DataRow dr in dt2.Rows)
             {
@@ -236,15 +236,15 @@ namespace InventoryManagement
                 int qty = 0;
                 string pname = "";
 
-                SqlCommand cmd3 = conn.CreateCommand();
+                MySqlCommand cmd3 = conn.CreateCommand();
                 cmd3.CommandType = CommandType.Text;
-                cmd3.CommandText = "insert into order_item values('" + orderId.ToString() + "', '" + dr["Product"].ToString() + "', '" + dr["Price"].ToString() + "', '" + dr["Quantity"].ToString() + "', '" + dr["Total"].ToString() + "')";
+                cmd3.CommandText = "insert into order_item (order_id, product, price, qty, total) values('" + orderId.ToString() + "', '" + dr["Product"].ToString() + "', '" + dr["Price"].ToString() + "', '" + dr["Quantity"].ToString() + "', '" + dr["Total"].ToString() + "')";
                 cmd3.ExecuteNonQuery();
 
                 qty = Convert.ToInt32(dr["Quantity"].ToString());
                 pname = dr["Product"].ToString();
 
-                SqlCommand cmd4 = conn.CreateCommand();
+                MySqlCommand cmd4 = conn.CreateCommand();
                 cmd4.CommandType = CommandType.Text;
                 cmd4.CommandText = "update stock set product_qty=product_qty-" + qty + " where product_name='" + pname.ToString() + "'";
                 cmd4.ExecuteNonQuery();

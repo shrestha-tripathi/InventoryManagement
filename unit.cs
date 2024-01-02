@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Configuration;
 
 namespace InventoryManagement
 {
     public partial class unit : Form
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionStringMySQL"].ConnectionString;
+        MySqlConnection conn = new MySqlConnection(connectionString);
         public unit()
         {
             InitializeComponent();
@@ -29,20 +29,20 @@ namespace InventoryManagement
         private void button1_Click(object sender, EventArgs e)
         {
             int count = 0;
-            SqlCommand cmd1 = conn.CreateCommand();
+            MySqlCommand cmd1 = conn.CreateCommand();
             cmd1.CommandType = CommandType.Text;
             cmd1.CommandText = "select * from units where unit='" + textBox1.Text + "'";
             cmd1.ExecuteNonQuery();
             DataTable dt1 = new DataTable();
-            SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
+            MySqlDataAdapter da1 = new MySqlDataAdapter(cmd1);
             da1.Fill(dt1);
             count = Convert.ToInt32(dt1.Rows.Count.ToString());
 
             if (count == 0)
             {
-                SqlCommand cmd = conn.CreateCommand();
+                MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "insert into units values('" + textBox1.Text + "')";
+                cmd.CommandText = "insert into units (unit) values('" + textBox1.Text + "')";
                 cmd.ExecuteNonQuery();
                 display();
             }
@@ -67,12 +67,12 @@ namespace InventoryManagement
 
         public void display()
         {
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from units";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             dataGridView1.DataSource = dt;
 
@@ -82,7 +82,7 @@ namespace InventoryManagement
         {
             int id;
             id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "delete from units where id='" + id + "'";
             cmd.ExecuteNonQuery();

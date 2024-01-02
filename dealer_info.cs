@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Configuration;
 
 namespace InventoryManagement
 {
     public partial class dealer_info : Form
     {
-        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
-        SqlConnection conn = new SqlConnection(connectionString);
+        private static string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionStringMySQL"].ConnectionString;
+        MySqlConnection conn = new MySqlConnection(connectionString);
         public dealer_info()
         {
             InitializeComponent();
@@ -28,9 +28,9 @@ namespace InventoryManagement
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into dealer_info values('" + textBox1.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "', '" + textBox4.Text + "', '" + textBox5.Text + "')";
+            cmd.CommandText = "insert into dealer_info (dealer_name, dealer_company_name, contact, address, city) values('" + textBox1.Text + "', '" + textBox2.Text + "', '" + textBox3.Text + "', '" + textBox4.Text + "', '" + textBox5.Text + "')";
             cmd.ExecuteNonQuery();
 
             textBox1.Text = "";
@@ -57,12 +57,12 @@ namespace InventoryManagement
 
         public void fill_dg()
         {
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from dealer_info";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             dataGridView1.DataSource = dt;
 
@@ -72,7 +72,7 @@ namespace InventoryManagement
         {
             int id;
             id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "delete from dealer_info where id=" + id + "";
             cmd.ExecuteNonQuery();
@@ -94,12 +94,12 @@ namespace InventoryManagement
             panel2.Visible = true;
             int id;
             id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "select * from dealer_info where id=" + id + "";
             cmd.ExecuteNonQuery();
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             da.Fill(dt);
             foreach (DataRow dr in dt.Rows)
             {
@@ -117,7 +117,7 @@ namespace InventoryManagement
         {
             int id;
             id = Convert.ToInt32(dataGridView1.SelectedCells[0].Value.ToString());
-            SqlCommand cmd = conn.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "update dealer_info set dealer_name='" + textBox6.Text + "' , dealer_company_name='" + textBox7.Text + "', contact='" + textBox8.Text + "', address='" + textBox9.Text + "', city='" + textBox10.Text + "' where id=" + id + "";
             cmd.ExecuteNonQuery();
